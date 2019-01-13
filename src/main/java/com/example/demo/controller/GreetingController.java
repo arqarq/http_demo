@@ -3,10 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Greeting;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,11 +22,17 @@ public class GreetingController {
     @PostMapping("/names")
     public ResponseEntity<?> addName(@RequestParam("name") String name) {
         names.add(name);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(":)", HttpStatus.CREATED);
     }
 
     @GetMapping("/names")
-    public List<String> getNames() {
-        return names;
+    public ResponseEntity<?> getNames() {
+//        return names;
+        return new ResponseEntity<>(names, HttpStatus.I_AM_A_TEAPOT);
+    }
+
+    @GetMapping("/names/{i}")
+    public String getName(@PathVariable("i") int i) {
+        return names.get(i);
     }
 }
