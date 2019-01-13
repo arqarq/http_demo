@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Greeting;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,9 @@ public class GreetingController {
     }
 
     @PostMapping("/names")
-    public void addName(@RequestParam("name") String name) {
+    public ResponseEntity<?> addName(@RequestParam("name") String name) {
         names.add(name);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/names")
